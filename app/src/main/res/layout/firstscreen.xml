@@ -19,4 +19,24 @@
         android:id="@+id/nowposvocabmeaning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        />
+    <EditText
+        android:id="@+id/searchtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="搜索内容"/>
+    <Button
+        android:id="@+id/searchbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="搜索"/>
+    <ListView
+        android:id="@+id/searchresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
 </LinearLayout>
