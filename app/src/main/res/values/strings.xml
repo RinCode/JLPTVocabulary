@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">JLPT</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">在小组件中展示</string>
+</resources>

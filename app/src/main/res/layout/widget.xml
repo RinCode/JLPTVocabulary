@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/kanji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:text="汉字"
+        />
+
+    <TextView
+        android:id="@+id/hiragana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/kanji"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:text="平假名" />
+
+    <TextView
+        android:id="@+id/meaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:text="意义"
+        android:layout_below="@+id/hiragana" />
+</RelativeLayout>
