@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.util.Objects;
 
 import cc.tachi.jlpt.Fragment.FirstScreen;
+import cc.tachi.jlpt.Fragment.Setting;
 import cc.tachi.jlpt.Fragment.Vocab;
 import cc.tachi.jlpt.Widget.ChangeWord;
 import cc.tachi.jlpt.Widget.MyWidget;
@@ -42,7 +43,9 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences preferences;
     private FragmentManager fm;
     private FirstScreen firstScreen;
+    private Setting setting;
     private Vocab vocab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +157,8 @@ public class MainActivity extends AppCompatActivity
             vocab.setArguments(bundle);
             fm.beginTransaction().replace(R.id.id_content, vocab).commit();
         } else if (id == R.id.nav_setting) {
-
+            setting = new Setting();
+            fm.beginTransaction().replace(R.id.id_content, setting).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
