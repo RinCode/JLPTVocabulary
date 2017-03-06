@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.widget.Toast;
 
 /**
  * Created by tachi on 2017-03-05.
@@ -20,7 +21,7 @@ public class MyService extends Service {
         //动态注册广播接收器
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("ACTION_MAKE_NUMBER");
+        filter.addAction("ACTION_CHANGE_WORD");
         registerReceiver(receiver, filter);
     }
     @Override
@@ -42,9 +43,9 @@ public class MyService extends Service {
         // 接收到Widget发送的广播
         @Override
         public void onReceive(Context context, Intent intent) {
-//            if ("ACTION_MAKE_NUMBER".equals(intent.getAction())) {
-//
-//            }
+            if ("ACTION_CHANGE_WORLD".equals(intent.getAction())) {
+                new ChangeWord(context);
+            }
         }
     }
 

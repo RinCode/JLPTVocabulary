@@ -1,5 +1,6 @@
 package cc.tachi.jlpt.Widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -31,8 +32,8 @@ public class MyWidget extends AppWidgetProvider {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         ComponentName provider = new ComponentName(context,MyWidget.class);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-//        Intent numberIntent = new Intent("ACTION_MAKE_NUMBER");
-//        views.setOnClickPendingIntent(R.id.btn_widget_button, PendingIntent.getBroadcast(context, 0, numberIntent , PendingIntent.FLAG_UPDATE_CURRENT));
+        Intent numberIntent = new Intent("ACTION_CHANGE_WORD");
+        views.setOnClickPendingIntent(R.id.hiragana, PendingIntent.getBroadcast(context, 0, numberIntent , PendingIntent.FLAG_UPDATE_CURRENT));
         manager.updateAppWidget(provider, views);
     }
 
@@ -44,17 +45,17 @@ public class MyWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        //启动MyService
-//        Intent intent = new Intent(context,MyService.class);
-//        context.startService(intent);
+//        启动MyService
+        Intent intent = new Intent(context,MyService.class);
+        context.startService(intent);
     }
 
     @Override
     public void onDisabled(Context context) {
         super.onDisabled(context);
-        //停止MyService
-//        Intent intent = new Intent(context,MyService.class);
-//        context.stopService(intent);
+//        停止MyService
+        Intent intent = new Intent(context,MyService.class);
+        context.stopService(intent);
     }
 
 }
