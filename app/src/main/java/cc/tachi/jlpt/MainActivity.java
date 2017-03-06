@@ -135,20 +135,27 @@ public class MainActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         if (id == R.id.n2) {
             bundle.putString("level", "n2");
+            vocab = new Vocab();
+            vocab.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.id_content, vocab).commit();
         } else if (id == R.id.n3) {
             bundle.putString("level", "n3");
+            vocab = new Vocab();
+            vocab.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.id_content, vocab).commit();
         } else if (id == R.id.n4) {
             bundle.putString("level", "n4");
+            vocab = new Vocab();
+            vocab.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.id_content, vocab).commit();
         } else if (id == R.id.n5) {
             bundle.putString("level", "n5");
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            vocab = new Vocab();
+            vocab.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.id_content, vocab).commit();
+        } else if (id == R.id.nav_setting) {
 
         }
-        vocab = new Vocab();
-        vocab.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.id_content, vocab).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
