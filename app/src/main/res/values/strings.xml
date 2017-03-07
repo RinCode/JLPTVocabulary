@@ -5,4 +5,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">在小组件中展示</string>
+    <string name="version">JLPT Vocabulary Test v1.1</string>
 </resources>

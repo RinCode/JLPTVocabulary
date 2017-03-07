@@ -15,13 +15,10 @@ import cc.tachi.jlpt.R;
  */
 
 public class Setting_About extends Fragment {
-    private TextView about;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.setting_usage, container, false);
-        about = (TextView) view.findViewById(R.id.description);
-        about.setText("JLPT Vocabulary Test v0.2");
+        View view = inflater.inflate(R.layout.setting_about, container, false);
         return view;
     }
 }
