@@ -1,5 +1,6 @@
 package cc.tachi.jlpt;
 
+import android.Manifest;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -7,12 +8,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +39,7 @@ import java.util.Objects;
 import cc.tachi.jlpt.Fragment.FirstScreen;
 import cc.tachi.jlpt.Fragment.Setting;
 import cc.tachi.jlpt.Fragment.Vocab;
+import cc.tachi.jlpt.Function.CrashHandler;
 import cc.tachi.jlpt.Widget.ChangeWord;
 import cc.tachi.jlpt.Widget.MyWidget;
 
@@ -80,6 +85,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init() {
+        //权限申请
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+
+        //注册异常监听器
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
+
         register();//注册锁屏监听器
         firstScreen = new FirstScreen();
         fm.beginTransaction().replace(R.id.id_content, firstScreen).commit();
@@ -265,6 +281,16 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "拒绝存储权限将无法记录错误日志！", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

@@ -34,7 +34,9 @@ public class Setting_Usage extends Fragment {
                 "程序内：\n" +
                 "长按单词项可进行发音。\n" +
                 "\n" +
-                "注意：发音功能使用GoogleTTS进行发音，可能对您并不可用。");
+                "注意：发音功能使用GoogleTTS进行发音，可能对您并不可用。\n" +
+                "\n" +
+                "本软件错误日志记录在/sdcard/jlpt_crash/下，您可将其删除。");
         return view;
     }
 }
