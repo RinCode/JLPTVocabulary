@@ -71,6 +71,7 @@ public class FirstScreen extends Fragment {
             c.close();
         }
         db.close();
+        searcttext.setFocusable(false);
         return view;
     }
 

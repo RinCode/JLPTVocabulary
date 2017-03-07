@@ -21,6 +21,7 @@ public class Setting extends Fragment{
     private ListView setting;
     private ArrayAdapter adapter;
     private Setting_Usage setting_usage;
+    private Setting_About setting_about;
     private FragmentManager fm;
     @Nullable
     @Override
@@ -46,6 +47,8 @@ public class Setting extends Fragment{
                         fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, setting_usage).commit();
                         break;
                     case 1:
+                        setting_about = new Setting_About();
+                        fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, setting_about).commit();
                         break;
                     default:
                         break;

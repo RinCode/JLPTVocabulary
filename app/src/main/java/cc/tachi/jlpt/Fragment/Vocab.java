@@ -1,6 +1,8 @@
 package cc.tachi.jlpt.Fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import cc.tachi.jlpt.R;
@@ -31,6 +36,8 @@ public class Vocab extends Fragment {
     private SQLiteDatabase db;
     private Bundle bundle;
     private SharedPreferences preferences;
+    private int MY_DATA_CHECK_CODE = 0;
+    private TextToSpeech myTTS;
 
     @Nullable
     @Override
@@ -46,7 +53,7 @@ public class Vocab extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(final Bundle savedInstanceState) {
         db = getActivity().openOrCreateDatabase(bundle.getString("level")+".db", getActivity().MODE_PRIVATE, null);
         datalist.clear();
         Cursor c = db.rawQuery("select * from jlpt", null);
@@ -75,6 +82,14 @@ public class Vocab extends Fragment {
         String pos = preferences.getString(bundle.getString("level"), "0");
         vocablist.setSelection(Integer.parseInt(pos));
 
+        vocablist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                HashMap content = (HashMap) adapterView.getItemAtPosition(i);
+                myTTS.speak(content.get("hiragana").toString(), TextToSpeech.QUEUE_FLUSH, null);
+                return false;
+            }
+        });
 
         vocablist.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -92,6 +107,45 @@ public class Vocab extends Fragment {
 
             }
         });
+
+        Intent checkTTSIntent = new Intent();
+        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MY_DATA_CHECK_CODE) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                myTTS = new TextToSpeech(getActivity(),new TTSListener());
+            } else {
+                Intent installTTSIntent = new Intent();
+                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installTTSIntent);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private class TTSListener implements TextToSpeech.OnInitListener {
+
+        @Override
+        public void onInit(int status) {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = myTTS.setLanguage(Locale.JAPANESE);
+                if (result == TextToSpeech.LANG_MISSING_DATA
+                        || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getActivity(),"不支持",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        myTTS.shutdown();
     }
 }
