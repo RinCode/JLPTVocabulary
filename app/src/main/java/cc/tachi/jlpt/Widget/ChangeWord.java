@@ -1,5 +1,6 @@
 package cc.tachi.jlpt.Widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,16 +35,16 @@ public class ChangeWord {
         Cursor c = db.rawQuery("select * from jlpt where _id =" + pos, null);
         //设置要显示的TextView，及显示的内容'
         if (c != null) {
-            while (c.moveToNext()) {
+            if(c.moveToNext()) {
                 views.setTextViewText(R.id.kanji, c.getString(c.getColumnIndex("kanji")));
                 views.setTextViewText(R.id.hiragana, c.getString(c.getColumnIndex("hiragana")));
                 views.setTextViewText(R.id.meaning, c.getString(c.getColumnIndex("simplified_chinese")));
+            }else{
+                editor.putString("pos", "1");
+                editor.apply();
             }
             // 发送一个系统广播
             manager.updateAppWidget(provider, views);
-        } else {
-            editor.putString("position", "1");
-            editor.apply();
         }
         db.close();
     }
