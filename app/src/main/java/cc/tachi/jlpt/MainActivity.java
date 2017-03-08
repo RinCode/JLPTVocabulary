@@ -218,8 +218,7 @@ public class MainActivity extends AppCompatActivity
         }
         // 数据库文件
         File file;
-        for(int i=0;i<lmenu.length;i++) {
-            file = new File(dir, lmenu[i]+".db");
+            file = new File(dir, "n2.db");
             try {
                 if (!file.exists()) {
                     file.createNewFile();
@@ -238,6 +237,62 @@ public class MainActivity extends AppCompatActivity
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        file = new File(dir, "n3.db");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            // 加载需要导入的数据库
+            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n3);
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buffere = new byte[is.available()];
+            is.read(buffere);
+            fos.write(buffere);
+            is.close();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        file = new File(dir, "n4.db");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            // 加载需要导入的数据库
+            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n4);
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buffere = new byte[is.available()];
+            is.read(buffere);
+            fos.write(buffere);
+            is.close();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        file = new File(dir, "n5.db");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            // 加载需要导入的数据库
+            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n5);
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buffere = new byte[is.available()];
+            is.read(buffere);
+            fos.write(buffere);
+            is.close();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         //建立新的数据库
