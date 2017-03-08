@@ -102,7 +102,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出...日志文件位于/sdcard/jlpt_crash/", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();

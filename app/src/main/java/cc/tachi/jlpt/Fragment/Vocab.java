@@ -85,8 +85,13 @@ public class Vocab extends Fragment {
         vocablist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                HashMap content = (HashMap) adapterView.getItemAtPosition(i);
-                myTTS.speak(content.get("hiragana").toString(), TextToSpeech.QUEUE_FLUSH, null);
+                try {
+                    HashMap content = (HashMap) adapterView.getItemAtPosition(i);
+                    myTTS.speak(content.get("hiragana").toString(), TextToSpeech.QUEUE_FLUSH, null);
+                }catch (Exception e){
+                    Toast.makeText(getActivity(),"TTS不可用",Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 return false;
             }
         });
@@ -108,23 +113,31 @@ public class Vocab extends Fragment {
             }
         });
 
-        Intent checkTTSIntent = new Intent();
-        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+        try {
+            Intent checkTTSIntent = new Intent();
+            checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+            startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MY_DATA_CHECK_CODE) {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-                myTTS = new TextToSpeech(getActivity(),new TTSListener());
-            } else {
-                Intent installTTSIntent = new Intent();
-                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installTTSIntent);
+        try {
+            if (requestCode == MY_DATA_CHECK_CODE) {
+                if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                    myTTS = new TextToSpeech(getActivity(), new TTSListener());
+                } else {
+                    Intent installTTSIntent = new Intent();
+                    installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                    startActivity(installTTSIntent);
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -137,7 +150,7 @@ public class Vocab extends Fragment {
                 int result = myTTS.setLanguage(Locale.JAPANESE);
                 if (result == TextToSpeech.LANG_MISSING_DATA
                         || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(getActivity(),"不支持",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"TTS不可用",Toast.LENGTH_SHORT).show();
                 }
             }
         }
