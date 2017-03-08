@@ -34,6 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Objects;
 
 import cc.tachi.jlpt.Fragment.FirstScreen;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private FirstScreen firstScreen;
     private Setting setting;
     private Vocab vocab;
+    private String[] lmenu = {"n2","n3","n4", "n5"};
 
 
     @Override
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             String level = (String) this.getTitle();
-            if (!Objects.equals(level, "JLPT")) {
+            if ((Arrays.asList(lmenu).contains(level))) {
                 preferences = getSharedPreferences("ScrollPos", MODE_PRIVATE);
                 String pos = preferences.getString(level, "0");
                 SharedPreferences.Editor editor = getSharedPreferences("ShowPos", MODE_PRIVATE).edit();

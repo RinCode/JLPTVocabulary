@@ -27,6 +27,7 @@ public class Setting extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting, container, false);
+        getActivity().setTitle("设置");
         setting = (ListView) view.findViewById(R.id.setting);
         adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1);
         adapter.add("用法");

@@ -20,8 +20,9 @@ public class Setting_Usage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_usage, container, false);
+        getActivity().setTitle("用法说明");
         description = (TextView) view.findViewById(R.id.description);
-        description.setText("\t本软件用于JLPT单词的学习，主要功能为桌面小组件。\n" +
+        description.setText("\t本软件用于JLPT单词的学习，主要功能为桌面小组件单词展示。\n" +
                 "\n" +
                 "使用方法：\n" +
                 "小组件：（需保持后台运行）\n" +
