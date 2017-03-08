@@ -82,11 +82,13 @@ public class MainActivity extends AppCompatActivity
 
         fm = getSupportFragmentManager();
 
-        importDatabase();
         init();
     }
 
     private void init() {
+        //导入数据库
+        importDatabase();
+
         //权限申请
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -98,7 +100,9 @@ public class MainActivity extends AppCompatActivity
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
 
-        register();//注册锁屏监听器
+        //注册锁屏监听器
+        register();
+
         firstScreen = new FirstScreen();
         fm.beginTransaction().replace(R.id.id_content, firstScreen).commit();
     }
@@ -174,6 +178,11 @@ public class MainActivity extends AppCompatActivity
             vocab = new Vocab();
             vocab.setArguments(bundle);
             fm.beginTransaction().replace(R.id.id_content, vocab).commit();
+        } else if (id == R.id.recent) {
+            bundle.putString("level", "recent");
+            vocab = new Vocab();
+            vocab.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.id_content, vocab).commit();
         } else if (id == R.id.nav_setting) {
             setting = new Setting();
             fm.beginTransaction().replace(R.id.id_content, setting).commit();
@@ -201,89 +210,40 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void importDatabase() {
-        // 存放数据库的目录
+        // 导入已有数据库
         String dirPath = "/data/data/cc.tachi.jlpt/databases";
         File dir = new File(dirPath);
         if (!dir.exists()) {
             dir.mkdir();
         }
         // 数据库文件
-        File file = new File(dir, "n2.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n2);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
+        File file;
+        for(int i=0;i<lmenu.length;i++) {
+            file = new File(dir, lmenu[i]+".db");
+            try {
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                // 加载需要导入的数据库
+                InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n2);
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buffere = new byte[is.available()];
+                is.read(buffere);
+                fos.write(buffere);
+                is.close();
+                fos.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        file = new File(dir, "n3.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n3);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        file = new File(dir, "n4.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n4);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        file = new File(dir, "n5.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n5);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //建立新的数据库
+        SQLiteDatabase db = openOrCreateDatabase("recent.db", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE if not exists \"jlpt\" (\"_id\" INTEGER PRIMARY KEY NOT NULL ,\"level\" INTEGER,\"kanji\" TEXT NOT NULL ,\"hiragana\" TEXT,\"simplified_chinese\" TEXT NOT NULL ,\"traditional_chinese\" TEXT NOT NULL ,\"english\" TEXT NOT NULL )");
+        db.close();
     }
 
     @Override

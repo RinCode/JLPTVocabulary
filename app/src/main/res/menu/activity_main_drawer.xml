@@ -18,6 +18,10 @@
             android:id="@+id/n5"
             android:icon="@android:drawable/ic_menu_agenda"
             android:title="N5" />
+        <item
+            android:id="@+id/recent"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="recent" />
     </group>
 
     <item android:title="Setting">
