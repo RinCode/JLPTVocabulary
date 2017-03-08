@@ -159,6 +159,8 @@ public class Vocab extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        myTTS.shutdown();
+        if (myTTS!=null) {
+            myTTS.shutdown();
+        }
     }
 }
