@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity
     private FirstScreen firstScreen;
     private Setting setting;
     private Vocab vocab;
-    private String[] lmenu = {"n2","n3","n4", "n5"};
+    private String[] lmenu = {"n2", "n3", "n4", "n5"};
+    private int[] databese = {R.raw.n2, R.raw.n3, R.raw.n4, R.raw.n5};
 
 
     @Override
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity
                 editor.putString("level", level);
                 editor.apply();
                 Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Toast.makeText(this, "不允许", Toast.LENGTH_SHORT).show();
             }
             return true;
@@ -218,13 +219,14 @@ public class MainActivity extends AppCompatActivity
         }
         // 数据库文件
         File file;
-            file = new File(dir, "n2.db");
+        for(int i = 0;i<lmenu.length;i++) {
+            file = new File(dir, lmenu[i]+".db");
             try {
                 if (!file.exists()) {
                     file.createNewFile();
                 }
                 // 加载需要导入的数据库
-                InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n2);
+                InputStream is = this.getApplicationContext().getResources().openRawResource(databese[i]);
                 FileOutputStream fos = new FileOutputStream(file);
                 byte[] buffere = new byte[is.available()];
                 is.read(buffere);
@@ -237,62 +239,6 @@ public class MainActivity extends AppCompatActivity
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        file = new File(dir, "n3.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n3);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        file = new File(dir, "n4.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n4);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        file = new File(dir, "n5.db");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // 加载需要导入的数据库
-            InputStream is = this.getApplicationContext().getResources().openRawResource(R.raw.n5);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffere = new byte[is.available()];
-            is.read(buffere);
-            fos.write(buffere);
-            is.close();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         //建立新的数据库
