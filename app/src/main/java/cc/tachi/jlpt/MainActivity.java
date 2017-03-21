@@ -137,10 +137,12 @@ public class MainActivity extends AppCompatActivity
             String level = (String) this.getTitle();
             if ((Arrays.asList(lmenu).contains(level))) {
                 preferences = getSharedPreferences("ScrollPos", MODE_PRIVATE);
-                String pos = preferences.getString(level, "0");
+                String pos = preferences.getString(level, "0|0");
+                String [] temp = null;
+                temp = pos.split("\\|");
                 SharedPreferences.Editor editor = getSharedPreferences("ShowPos", MODE_PRIVATE).edit();
                 //数据库位置需要+1
-                editor.putString("pos", String.valueOf(Integer.parseInt(pos) + 1));
+                editor.putString("pos", String.valueOf(Integer.parseInt(temp[0]) + 1));
                 editor.putString("level", level);
                 editor.apply();
                 Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();

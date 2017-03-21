@@ -8,13 +8,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,22 +21,25 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import cc.tachi.jlpt.Function.MyRecyclerView;
+import cc.tachi.jlpt.Function.RecyclerAdapter;
+import cc.tachi.jlpt.Function.OnRecyclerItemClickListener;
 import cc.tachi.jlpt.R;
 
 /**
  * Created by tachi on 2017-03-06.
- *
  */
 
 public class Vocab extends Fragment {
-    private ListView vocablist;
+    private MyRecyclerView vocablist;
     private ArrayList<Map<String, Object>> datalist;
-    private SimpleAdapter adapter;
+    private RecyclerAdapter adapter;
     private SQLiteDatabase db;
     private Bundle bundle;
     private SharedPreferences preferences;
     private int MY_DATA_CHECK_CODE = 0;
     private TextToSpeech myTTS;
+    private LinearLayoutManager manager;
 
     @Nullable
     @Override
@@ -45,16 +47,19 @@ public class Vocab extends Fragment {
         View view = inflater.inflate(R.layout.vocab, container, false);
         bundle = getArguments();
         getActivity().setTitle(bundle.getString("level"));
-        vocablist = (ListView) view.findViewById(R.id.vocablist);
+        vocablist = (MyRecyclerView) view.findViewById(R.id.vocablist);
         datalist = new ArrayList<Map<String, Object>>();
-        adapter = new SimpleAdapter(getActivity(), datalist, R.layout.item, new String[]{"kanji", "hiragana", "meaning"}, new int[]{R.id.kanji, R.id.hiragana, R.id.meaning});
+        adapter = new RecyclerAdapter(getActivity(), datalist);
+//        adapter = new SimpleAdapter(getActivity(), datalist, R.layout.item, new String[]{"kanji", "hiragana", "meaning"}, new int[]{R.id.kanji, R.id.hiragana, R.id.meaning});
+        manager = new LinearLayoutManager(getActivity());
+        vocablist.setLayoutManager(manager);
         vocablist.setAdapter(adapter);
         return view;
     }
 
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
-        db = getActivity().openOrCreateDatabase(bundle.getString("level")+".db", getActivity().MODE_PRIVATE, null);
+        db = getActivity().openOrCreateDatabase(bundle.getString("level") + ".db", getActivity().MODE_PRIVATE, null);
         datalist.clear();
         Cursor c = db.rawQuery("select * from jlpt", null);
         if (c != null) {
@@ -70,7 +75,7 @@ public class Vocab extends Fragment {
         db.close();
         if (datalist.isEmpty()) {
             final HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("kanji","无");
+            map.put("kanji", "无");
             map.put("hiragana", "无");
             map.put("meaning", "无");
             datalist.add(map);
@@ -79,37 +84,36 @@ public class Vocab extends Fragment {
 
         //设置已记录的滚动位置
         preferences = getActivity().getSharedPreferences("ScrollPos", getActivity().MODE_PRIVATE);
-        String pos = preferences.getString(bundle.getString("level"), "0");
-        vocablist.setSelection(Integer.parseInt(pos));
+        String posraw = preferences.getString(bundle.getString("level"), "0|0");
+        String [] temp = null;
+        temp = posraw.split("\\|");
+        manager.scrollToPositionWithOffset(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
 
-        vocablist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        vocablist.addOnItemTouchListener(new OnRecyclerItemClickListener(vocablist) {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(RecyclerView.ViewHolder viewHolder) {
+
+            }
+
+            @Override
+            public void onItemLOngClick(RecyclerView.ViewHolder viewHolder) {
                 try {
-                    HashMap content = (HashMap) adapterView.getItemAtPosition(i);
-                    myTTS.speak(content.get("hiragana").toString(), TextToSpeech.QUEUE_FLUSH, null);
-                }catch (Exception e){
-                    Toast.makeText(getActivity(),"TTS不可用",Toast.LENGTH_SHORT).show();
+                    myTTS.speak(datalist.get(viewHolder.getPosition()).get("kanji").toString(), TextToSpeech.QUEUE_FLUSH, null);
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "TTS不可用", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                return false;
             }
         });
 
-        vocablist.setOnScrollListener(new AbsListView.OnScrollListener() {
+        vocablist.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-                //设置滚动位置
-                if (i == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("ScrollPos", getActivity().MODE_PRIVATE).edit();
-                    editor.putString(bundle.getString("level"), String.valueOf(vocablist.getFirstVisiblePosition()));
-                    editor.apply();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                View topView = manager.getChildAt(0);
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("ScrollPos", getActivity().MODE_PRIVATE).edit();
+                editor.putString(bundle.getString("level"), String.valueOf(manager.getPosition(topView)) + "|" + String.valueOf(topView.getTop()));
+                editor.apply();
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 
@@ -117,7 +121,7 @@ public class Vocab extends Fragment {
             Intent checkTTSIntent = new Intent();
             checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
             startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -136,7 +140,7 @@ public class Vocab extends Fragment {
                     startActivity(installTTSIntent);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,7 +154,7 @@ public class Vocab extends Fragment {
                 int result = myTTS.setLanguage(Locale.JAPANESE);
                 if (result == TextToSpeech.LANG_MISSING_DATA
                         || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(getActivity(),"TTS不可用",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "TTS不可用", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -159,7 +163,7 @@ public class Vocab extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (myTTS!=null) {
+        if (myTTS != null) {
             myTTS.shutdown();
         }
     }

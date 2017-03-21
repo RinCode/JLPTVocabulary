@@ -3,10 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <cc.tachi.jlpt.Function.MyRecyclerView
         android:id="@+id/vocablist"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
-    </ListView>
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        />
 </LinearLayout>
