@@ -1,12 +1,10 @@
 package cc.tachi.jlpt.Function;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
 
     private Context context;
+    private SQLiteDatabase db;
     private LayoutInflater inflater;
     private ArrayList<Map<String, Object>> lists = new ArrayList<>();
 
@@ -56,6 +55,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     public void removeRecycle(int position) {
         lists.remove(position);
+        DBOperate dbo = new DBOperate(context);
+        dbo.setChecked(position+1,1);//id从1开始计数
         notifyDataSetChanged();
         if (lists.size() == 0) {
             Toast.makeText(context, "已经没数据啦", Toast.LENGTH_SHORT).show();

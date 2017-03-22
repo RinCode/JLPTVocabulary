@@ -41,6 +41,7 @@ import cc.tachi.jlpt.Fragment.FirstScreen;
 import cc.tachi.jlpt.Fragment.Setting;
 import cc.tachi.jlpt.Fragment.Vocab;
 import cc.tachi.jlpt.Function.CrashHandler;
+import cc.tachi.jlpt.Function.DBOperate;
 import cc.tachi.jlpt.Widget.ChangeWord;
 import cc.tachi.jlpt.Widget.MyWidget;
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_showinwidget) {
             String level = (String) this.getTitle();
             if ((Arrays.asList(lmenu).contains(level))) {
                 preferences = getSharedPreferences("ScrollPos", MODE_PRIVATE);
@@ -150,6 +151,13 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "不允许", Toast.LENGTH_SHORT).show();
             }
             return true;
+        }else if(id == R.id.action_showall){
+            DBOperate dbo = new DBOperate(this);
+            if (dbo.setAllChecked()){
+                Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "不允许", Toast.LENGTH_SHORT).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -245,7 +253,7 @@ public class MainActivity extends AppCompatActivity
 
         //建立新的数据库
         SQLiteDatabase db = openOrCreateDatabase("recent.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE if not exists \"jlpt\" (\"_id\" INTEGER PRIMARY KEY NOT NULL ,\"level\" INTEGER,\"kanji\" TEXT NOT NULL ,\"hiragana\" TEXT,\"simplified_chinese\" TEXT NOT NULL ,\"traditional_chinese\" TEXT NOT NULL ,\"english\" TEXT NOT NULL )");
+        db.execSQL("CREATE TABLE if not exists \"jlpt\" (\"_id\" INTEGER PRIMARY KEY NOT NULL ,\"level\" INTEGER,\"kanji\" TEXT NOT NULL ,\"hiragana\" TEXT,\"simplified_chinese\" TEXT NOT NULL ,\"traditional_chinese\" TEXT NOT NULL ,\"english\" TEXT NOT NULL , \"checked\" INTEGER NOT NULL )");
         db.close();
     }
 

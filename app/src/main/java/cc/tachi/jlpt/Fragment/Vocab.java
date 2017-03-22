@@ -50,7 +50,6 @@ public class Vocab extends Fragment {
         vocablist = (MyRecyclerView) view.findViewById(R.id.vocablist);
         datalist = new ArrayList<Map<String, Object>>();
         adapter = new RecyclerAdapter(getActivity(), datalist);
-//        adapter = new SimpleAdapter(getActivity(), datalist, R.layout.item, new String[]{"kanji", "hiragana", "meaning"}, new int[]{R.id.kanji, R.id.hiragana, R.id.meaning});
         manager = new LinearLayoutManager(getActivity());
         vocablist.setLayoutManager(manager);
         vocablist.setAdapter(adapter);
@@ -64,11 +63,13 @@ public class Vocab extends Fragment {
         Cursor c = db.rawQuery("select * from jlpt", null);
         if (c != null) {
             while (c.moveToNext()) {
-                final HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("kanji", c.getString(c.getColumnIndex("kanji")));
-                map.put("hiragana", c.getString(c.getColumnIndex("hiragana")));
-                map.put("meaning", c.getString(c.getColumnIndex("simplified_chinese")));
-                datalist.add(map);
+                if (c.getInt(c.getColumnIndex("checked")) ==0) {
+                    final HashMap<String, Object> map = new HashMap<String, Object>();
+                    map.put("kanji", c.getString(c.getColumnIndex("kanji")));
+                    map.put("hiragana", c.getString(c.getColumnIndex("hiragana")));
+                    map.put("meaning", c.getString(c.getColumnIndex("simplified_chinese")));
+                    datalist.add(map);
+                }
             }
             c.close();
         }

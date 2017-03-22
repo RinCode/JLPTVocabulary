@@ -76,7 +76,7 @@ public class ChangeWord {
         Cursor c = dbtemp.rawQuery("select * from jlpt where _id = "+pos, null);
         if (c != null) {
             while (c.moveToNext()) {
-                db.execSQL("insert into jlpt(level,kanji,hiragana,simplified_chinese,traditional_chinese,english) values(\"" + c.getString(c.getColumnIndex("level")) + "\",\"" + c.getString(c.getColumnIndex("kanji")) + "\",\"" + c.getString(c.getColumnIndex("hiragana")) + "\",\"" + c.getString(c.getColumnIndex("simplified_chinese")) + "\",\"" + c.getString(c.getColumnIndex("traditional_chinese")) + "\",\"" + c.getString(c.getColumnIndex("english")) + "\");");
+                db.execSQL("insert into jlpt(level,kanji,hiragana,simplified_chinese,traditional_chinese,english,checked) values(\"" + c.getString(c.getColumnIndex("level")) + "\",\"" + c.getString(c.getColumnIndex("kanji")) + "\",\"" + c.getString(c.getColumnIndex("hiragana")) + "\",\"" + c.getString(c.getColumnIndex("simplified_chinese")) + "\",\"" + c.getString(c.getColumnIndex("traditional_chinese")) + "\",\"" + c.getString(c.getColumnIndex("english")) + "\",0);");
             }
             c.close();
         }

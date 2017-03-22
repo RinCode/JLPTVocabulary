@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_showinwidget"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="在小组件中展示"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_showall"
+        android:orderInCategory="100"
+        android:title="重置所有隐藏单词"
         app:showAsAction="never" />
 </menu>
