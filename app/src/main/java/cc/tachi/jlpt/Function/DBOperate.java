@@ -3,6 +3,7 @@ package cc.tachi.jlpt.Function;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Created by tachi on 2017-03-22.
@@ -19,9 +20,9 @@ public class DBOperate {
 
     }
 
-    public boolean setChecked(int position,int type){
+    public boolean setChecked(String vocab,int type){//不传id防止出错
         try {
-            db.execSQL("UPDATE jlpt SET checked=" + type + " WHERE _id = " + position);
+            db.execSQL("UPDATE jlpt SET checked=" + type + " WHERE \"kanji\" = \"" + vocab+"\"");
             return true;
         }catch (Exception e){
             e.printStackTrace();

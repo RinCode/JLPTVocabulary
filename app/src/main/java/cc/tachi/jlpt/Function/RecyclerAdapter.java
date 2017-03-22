@@ -3,6 +3,7 @@ package cc.tachi.jlpt.Function;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -54,9 +55,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
     }
 
     public void removeRecycle(int position) {
-        lists.remove(position);
         DBOperate dbo = new DBOperate(context);
-        dbo.setChecked(position+1,1);//id从1开始计数
+        dbo.setChecked(lists.get(position).get("kanji").toString(),1);//id从1开始计数
+        lists.remove(position);
         notifyDataSetChanged();
         if (lists.size() == 0) {
             Toast.makeText(context, "已经没数据啦", Toast.LENGTH_SHORT).show();
