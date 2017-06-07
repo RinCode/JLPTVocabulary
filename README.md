@@ -5,7 +5,7 @@
 
 ## 部分截图（截至1.1版本）
 <p>
-<img width="180px" src="http://ofx23nwen.bkt.clouddn.com/jlpt/Screenshot_1.png"/>
+<img width="180px" src="http://ofx23nwen.bkt.clouddn.com/jlpt/Screenshot_1.jpg"/>
 <img width="180px" src="http://ofx23nwen.bkt.clouddn.com/jlpt/Screenshot_2.png"/>
 <img width="180px" src="http://ofx23nwen.bkt.clouddn.com/jlpt/Screenshot_3.png"/>
 <img width="180px" src="http://ofx23nwen.bkt.clouddn.com/jlpt/Screenshot_4.png"/>
