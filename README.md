@@ -25,4 +25,4 @@
 - 请自行编译
 
 ## 注意
-- 包名从cc.tachi.jlpt更改为com.rincyan.jlpt
+- 包名进行过更改
