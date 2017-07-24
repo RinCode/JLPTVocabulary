@@ -1,4 +1,4 @@
-package cc.tachi.jlpt;
+package com.rincyan.jlpt;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,6 +1,5 @@
-package cc.tachi.jlpt.Fragment;
+package com.rincyan.jlpt.Fragment;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  * Created by tachi on 2017-03-06.

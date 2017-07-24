@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Function;
+package com.rincyan.jlpt.Function;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  */

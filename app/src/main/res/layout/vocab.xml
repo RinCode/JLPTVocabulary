@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <cc.tachi.jlpt.Function.MyRecyclerView
+    <com.rincyan.jlpt.Function.MyRecyclerView
         android:id="@+id/vocablist"
         android:scrollbars="vertical"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Fragment;
+package com.rincyan.jlpt.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,9 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  * Created by tachi on 2017-03-06.

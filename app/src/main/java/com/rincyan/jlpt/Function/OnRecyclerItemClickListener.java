@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Function;
+package com.rincyan.jlpt.Function;
 
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;

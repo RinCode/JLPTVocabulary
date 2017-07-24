@@ -1,19 +1,15 @@
-package cc.tachi.jlpt;
+package com.rincyan.jlpt;
 
 import android.Manifest;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -26,7 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import java.io.File;
@@ -35,15 +30,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Objects;
 
-import cc.tachi.jlpt.Fragment.FirstScreen;
-import cc.tachi.jlpt.Fragment.Setting;
-import cc.tachi.jlpt.Fragment.Vocab;
-import cc.tachi.jlpt.Function.CrashHandler;
-import cc.tachi.jlpt.Function.DBOperate;
-import cc.tachi.jlpt.Widget.ChangeWord;
-import cc.tachi.jlpt.Widget.MyWidget;
+import com.rincyan.jlpt.Fragment.FirstScreen;
+import com.rincyan.jlpt.Fragment.Setting;
+import com.rincyan.jlpt.Fragment.Vocab;
+import com.rincyan.jlpt.Function.CrashHandler;
+import com.rincyan.jlpt.Function.DBOperate;
+import com.rincyan.jlpt.Widget.ChangeWord;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -222,7 +215,7 @@ public class MainActivity extends AppCompatActivity
 
     public void importDatabase() {
         // 导入已有数据库
-        String dirPath = "/data/data/cc.tachi.jlpt/databases";
+        String dirPath = "/data/data/com.rincyan.jlpt/databases";
         File dir = new File(dirPath);
         if (!dir.exists()) {
             dir.mkdir();

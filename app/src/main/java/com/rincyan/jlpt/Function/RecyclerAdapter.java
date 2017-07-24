@@ -1,9 +1,8 @@
-package cc.tachi.jlpt.Function;
+package com.rincyan.jlpt.Function;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Map;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  *

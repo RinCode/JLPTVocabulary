@@ -11,8 +11,7 @@
 <img width="180px" src="http://ofx23nwen.bkt.clouddn.com/jlpt/Screenshot_4.png"/>
 </p>
 
-##特性
- 
+##特性 
 - N2~N5单词展示
 - 桌面小组件单词展示（每次解锁自动更换下一个）
 - 显示本日已在小组件中展示过的单词
@@ -22,4 +21,4 @@
 - 于源代码内查看
 
 ## 下载
-- [http://ofx23nwen.bkt.clouddn.com/jlpt/1.1.apk](http://ofx23nwen.bkt.clouddn.com/jlpt/1.1.apk)
+- 请自行编译

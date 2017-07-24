@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cc.tachi.jlpt">
+    package="com.rincyan.jlpt">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.rincyan.jlpt.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="cc.tachi.jlpt.Widget.MyWidget" >
+        <receiver android:name="com.rincyan.jlpt.Widget.MyWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" >
                 </action>
@@ -29,7 +29,7 @@
                 android:resource="@xml/mywidget" />
         </receiver>
         <service
-            android:name="cc.tachi.jlpt.Widget.MyService"
+            android:name="com.rincyan.jlpt.Widget.MyService"
             android:enabled="true"
             android:exported="true" >
         </service>

@@ -1,9 +1,8 @@
-package cc.tachi.jlpt.Function;
+package com.rincyan.jlpt.Function;
 
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * Created by tachi on 2017-03-22.

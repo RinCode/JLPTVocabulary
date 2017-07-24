@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="cc.tachi.jlpt.MainActivity">
+    tools:context="com.rincyan.jlpt.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:padding="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="cc.tachi.passwordrecorder.MainActivity"
+        tools:context="com.rincyan.passwordrecorder.MainActivity"
         tools:showIn="@layout/app_bar_main">
 
         <FrameLayout

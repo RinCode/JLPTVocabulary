@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Widget;
+package com.rincyan.jlpt.Widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -10,10 +10,9 @@ import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Objects;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  * Created by tachi on 2017-03-06.

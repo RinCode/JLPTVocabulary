@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Fragment;
+package com.rincyan.jlpt.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  * Created by tachi on 2017-03-06.

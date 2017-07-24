@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "cc.tachi.jlpt"
+        applicationId "com.rincyan.jlpt"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 3

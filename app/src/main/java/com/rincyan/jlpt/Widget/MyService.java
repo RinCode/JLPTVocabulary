@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Widget;
+package com.rincyan.jlpt.Widget;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-import android.widget.Toast;
 
 /**
  * Created by tachi on 2017-03-05.

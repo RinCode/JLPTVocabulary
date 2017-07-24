@@ -1,4 +1,4 @@
-package cc.tachi.jlpt;
+package com.rincyan.jlpt;
 
 import org.junit.Test;
 

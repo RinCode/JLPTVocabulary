@@ -1,11 +1,11 @@
-package cc.tachi.jlpt.Function;
+package com.rincyan.jlpt.Function;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cc.tachi.jlpt.R;
+import com.rincyan.jlpt.R;
 
 /**
  * Created by tachi on 2017-03-21.

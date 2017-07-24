@@ -1,4 +1,4 @@
-package cc.tachi.jlpt.Function;
+package com.rincyan.jlpt.Function;
 
 import java.io.File;
 import java.io.FileOutputStream;
